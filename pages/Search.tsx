@@ -13,9 +13,15 @@ function Search() {
         className="border-black border-b-2 my-6 focus:outline-none"
         placeholder="Serach character"
       />
-      <div className="flex space-x-2">
+      <div className="flex space-x-2.5">
+        <button>
         <Image src={searchSVG} alt="search" />
+
+        </button>
+        <button>
+
         <Image src={crossSVG} alt="search" />
+        </button>
       </div>
 
     </div>

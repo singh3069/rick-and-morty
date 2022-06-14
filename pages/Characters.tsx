@@ -16,7 +16,7 @@ export default function Characters( character:any) {
               character.character.map((char:any)=>{
                 return <div key={char.id} className="py-3">
                  <Image src={char.image} alt={'characterImages'} width={300} height={300} />
-                  <h1>Name: {char.name}</h1>
+                  <h1 className='font-semibold uppercase'> {char.name}</h1>
                   </div>
               })
             }
