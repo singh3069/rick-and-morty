@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
-}
+  images: {
+    domains: ["rickandmortyapi.com"],
+  },
+};
 
-module.exports = nextConfig
+// const nextConfig = {
+//   reactStrictMode: true,
+// };
+
+// module.exports = nextConfig;

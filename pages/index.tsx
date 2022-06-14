@@ -1,9 +1,16 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Search from './search'
+import Characters from './Characters'
+import Search from './Search'
+import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
+import { useState } from 'react';
 
 
-const Home: NextPage = () => {
+const Home: NextPage = (results : any) => {
+  const intialState = results;
+   const [search, setSearch] = useState("");
+  const [characters, setCharacters] = useState(intialState.characters);
+  
   return (
     <div className=''>
       <Head>
@@ -18,7 +25,7 @@ const Home: NextPage = () => {
         </h1>
       </header>
       <Search/>
-
+      <Characters character={characters}/>
       {/* <footer className=''>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -36,3 +43,46 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export async function getStaticProps() {
+  const client = new ApolloClient({
+    uri: "https://rickandmortyapi.com/graphql/",
+    cache: new InMemoryCache(),
+  });
+  const { data } = await client.query({
+    query: gql`
+      query {
+        characters(page: 1) {
+          info {
+            count
+            pages
+          }
+          results {
+            name
+            id
+            location {
+              name
+              id
+            }
+            image
+            origin {
+              name
+              id
+            }
+            episode {
+              id
+              episode
+              air_date
+            }
+          }
+        }
+      }
+    `,
+  });
+
+  return {
+    props: {
+      characters: data.characters.results,
+    },
+  };
+}
