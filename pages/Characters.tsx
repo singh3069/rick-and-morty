@@ -11,12 +11,12 @@ export default function Characters( character:any) {
   // const [characters, setCharacters] = useState(intialState.characters);
   
   return (
-    <div>
+    <div className='flex flex-row h-full flex-wrap justify-evenly'>
             {
               character.character.map((char:any)=>{
-                return <div key={char.id}>
+                return <div key={char.id} className="py-3">
                  <Image src={char.image} alt={'characterImages'} width={300} height={300} />
-                  <h1>{char.name}</h1>
+                  <h1>Name: {char.name}</h1>
                   </div>
               })
             }
