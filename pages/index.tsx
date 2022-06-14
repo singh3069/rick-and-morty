@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const Home: NextPage = (results : any) => {
   const intialState = results;
-   const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [characters, setCharacters] = useState(intialState.characters);
   
   return (
