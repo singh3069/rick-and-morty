@@ -20,7 +20,9 @@ const Home: NextPage = (results : any) => {
       </Head>
 
       <header className="w-full h-20 justify-center items-center flex ">
-        <h1 className='text-5xl font-semibold font-serif py-3'>
+        <h1 className='text-5xl font-semibold font-serif py-3'
+        
+        >
           Rick And Morty
         </h1>
       </header>
@@ -41,7 +43,7 @@ export async function getStaticProps() {
   const { data } = await client.query({
     query: gql`
       query {
-        characters(page: 1) {
+        characters(page: 5) {
           info {
             count
             pages
@@ -49,6 +51,7 @@ export async function getStaticProps() {
           results {
             name
             id
+            status
             location {
               name
               id
