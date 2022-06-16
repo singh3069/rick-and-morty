@@ -5,7 +5,6 @@ import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
 // import characters from '../graphql/character/characters'
 
 export default function Characters( character:any) {
-  console.log({character})
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);
