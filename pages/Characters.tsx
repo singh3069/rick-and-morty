@@ -5,15 +5,22 @@ import { useQuery } from '@apollo/client';
 
 
 export default function Characters() {
-  const {loading, error, data : character} = useQuery(GET_ALL_CHARACTERS)
+  const [page , setPage] = useState(1);
+  const {loading, error, data : character} = useQuery(GET_ALL_CHARACTERS , {
+    variables: {
+      page: page
+    }
+  })
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);
   if(loading) return <p>Loading...</p>
   if(error) return <p>Error: {error.message}</p>
   return (
+    <>
+    <button onClick={()=>setPage(page+1)}>Next</button>
+    <button onClick={()=>setPage(page-1)} disabled={page === 1}>Previous</button>
     <div className='flex flex-row h-full flex-wrap justify-evenly'>
-      {/* <p>hello</p> */}
             {
               character.characters.results.map((char:any)=>{
                 return <div key={char.id} className="my-2 relative border-4 border-green-500">
@@ -28,6 +35,9 @@ export default function Characters() {
                   </div>
               })
             }
+            
     </div>
+    </>
+    
   )
 }
