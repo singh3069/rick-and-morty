@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from "next/image";
 import loadingSvg from "../public/loading.svg";
-import { GET_ALL_CHARACTERS } from './queries';
+import { GET_ALL_CHARACTERS } from '../public/queries';
 import { useQuery } from '@apollo/client';
 
 
@@ -12,7 +12,6 @@ export default function Characters() {
       page: page
     }
   })
-  console.log({character})
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);

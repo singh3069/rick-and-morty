@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Characters from './Characters'
-import Search from './Search'
+import Characters from '../components/Characters'
+import Search from '../components/Search'
 import { useState } from 'react';
-import Footer from './Footer';
+import Footer from '../components/Footer';
 
 
 

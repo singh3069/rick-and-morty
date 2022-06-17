@@ -3,7 +3,7 @@ import searchSVG from "../public/search.svg";
 import crossSVG from "../public/cross.svg";
 import Image from "next/image";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_CHARACTERS } from "./queries";
+import { GET_ALL_CHARACTERS } from "../public/queries";
 
 
 
