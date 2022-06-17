@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Image from "next/image";
+import loadingSvg from "../public/loading.svg";
 import { GET_ALL_CHARACTERS } from './queries';
 import { useQuery } from '@apollo/client';
 
@@ -15,7 +16,13 @@ export default function Characters() {
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);
-  if(loading) return <p>Loading...</p>
+  if(loading) {
+    return(
+      <div className='text-center'>
+        <Image src={loadingSvg} alt="search" className='bg-none' />
+      </div>
+    )
+  }
   if(error) return <p>Error: {error.message}</p>
   return (
     <>
