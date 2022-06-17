@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import Image from "next/image";
+import { GET_ALL_CHARACTERS } from './queries';
+import { useQuery } from '@apollo/client';
 
-import { ApolloClient, gql, InMemoryCache } from "@apollo/client";
-// import characters from '../graphql/character/characters'
 
-export default function Characters( character:any) {
+export default function Characters() {
+  const {loading, error, data : character} = useQuery(GET_ALL_CHARACTERS)
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);
-  
+  if(loading) return <p>Loading...</p>
+  if(error) return <p>Error: {error.message}</p>
   return (
     <div className='flex flex-row h-full flex-wrap justify-evenly'>
+      {/* <p>hello</p> */}
             {
-              character.character.map((char:any)=>{
+              character.characters.results.map((char:any)=>{
                 return <div key={char.id} className="my-2 relative border-4 border-green-500">
                  <Image src={char.image} alt={'characterImages'} width={300} height={300} />
                   <h1 className='font-semibold uppercase'> {char.name}</h1>
@@ -28,49 +31,3 @@ export default function Characters( character:any) {
     </div>
   )
 }
-
-// export default Characters
-
-
-// export async function getStaticProps() {
-//   const client = new ApolloClient({
-//     uri: "https://rickandmortyapi.com/graphql",
-//     cache: new InMemoryCache(),
-//   });
-//   const { data } = await client.query({
-//     query: gql`
-//       query {
-//         characters(page: 1) {
-//           info {
-//             count
-//             pages
-//           }
-//           results {
-//             name
-//             id
-//             location {
-//               name
-//               id
-//             }
-//             image
-//             origin {
-//               name
-//               id
-//             }
-//             episode {
-//               id
-//               episode
-//               air_date
-//             }
-//           }
-//         }
-//       }
-//     `,
-//   });
-
-//   return {
-//     props: {
-//       characters: data.characters.results,
-//     },
-//   };
-// }
