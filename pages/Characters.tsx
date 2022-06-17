@@ -11,6 +11,7 @@ export default function Characters() {
       page: page
     }
   })
+  console.log({character})
   // const intialState = results;
   // const [search, setSearch] = useState("");
   // const [characters, setCharacters] = useState(intialState.characters);
@@ -18,8 +19,19 @@ export default function Characters() {
   if(error) return <p>Error: {error.message}</p>
   return (
     <>
-    <button onClick={()=>setPage(page+1)}>Next</button>
-    <button onClick={()=>setPage(page-1)} disabled={page === 1}>Previous</button>
+    <div className='text-center space-x-4 flex justify-center'>
+      <button onClick={()=>setPage(page-1)} disabled={page === 1}
+    style={{
+      cursor: page === 1 ? 'not-allowed' : 'pointer'
+    }}
+    className='border-2 border-black p-1 rounded-md'>Previous Page
+    </button>
+
+      <p className='text-center'>Showing Page <span className='text-green-500'>{page}</span> out of 42 </p>
+      <button onClick={()=>setPage(page+1)} className='border-2 border-black p-1 rounded-md'>Next Page</button>
+
+    
+    </div>
     <div className='flex flex-row h-full flex-wrap justify-evenly'>
             {
               character.characters.results.map((char:any)=>{
