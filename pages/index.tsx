@@ -4,6 +4,7 @@ import Characters from '../components/Characters'
 import Search from '../components/Search'
 import { useState } from 'react';
 import Footer from '../components/Footer';
+import CharactersQuery from "../public/hooks/CharactersQuery";
 
 
 
@@ -12,7 +13,8 @@ const Home: NextPage = (results : any) => {
   const intialState = results;
   const [search, setSearch] = useState("");
   const [characters, setCharacters] = useState(intialState.characters);
-  
+  // const { loading } = CharactersQuery();
+  // console.log(loading);
   return (
     <div>
     <div className='flex flex-col px-16'>
@@ -32,6 +34,9 @@ const Home: NextPage = (results : any) => {
       <Search/>
       <Characters/>
     </div>
+    {/* {
+      loading === true ? <div></div> : <Footer/>
+    } */}
     <Footer/>
     </div>
   )
