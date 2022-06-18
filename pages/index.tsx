@@ -9,10 +9,10 @@ import CharactersQuery from "../public/hooks/CharactersQuery";
 
 
 
-const Home: NextPage = (results : any) => {
-  const intialState = results;
-  const [search, setSearch] = useState("");
-  const [characters, setCharacters] = useState(intialState.characters);
+const Home: NextPage = () => {
+  // const intialState = results;
+  // const [search, setSearch] = useState("");
+  // const [characters, setCharacters] = useState(intialState.characters);
   // const { loading } = CharactersQuery();
   // console.log(loading);
   return (

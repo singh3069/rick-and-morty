@@ -7,9 +7,7 @@ import CharactersQuery from '../public/hooks/CharactersQuery';
 export default function Characters() {
   const [page , setPage] = useState(1);
   const {loading, error, character} = CharactersQuery(page);
-  // const intialState = results;
-  // const [search, setSearch] = useState("");
-  // const [characters, setCharacters] = useState(intialState.characters);
+
   if(loading) {
     return(
       <div className='text-center'>
@@ -29,7 +27,7 @@ export default function Characters() {
     </button>
 
       <p className='text-center'>Showing Page <span className='text-green-500'>{page}</span> out of 42 </p>
-      <button onClick={()=>setPage(page+1)} className='border-2 border-black p-1 rounded-md'>Next Page</button>
+      <button onClick={()=>setPage(page+1)} className='border-2 border-black p-1 rounded-md' disabled={page===42}>Next Page</button>
 
     
     </div>
