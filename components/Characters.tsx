@@ -2,12 +2,21 @@ import React, { useState } from 'react'
 import Image from "next/image";
 import loadingSvg from "../public/loading.svg";
 import CharactersQuery from '../public/hooks/CharactersQuery';
+import CharactersInfo from './CharactersInfo';
 
 
 export default function Characters() {
   const [page , setPage] = useState(1);
   const {loading, error, character} = CharactersQuery(page);
+  const  [isOpen, setIsOpen] = useState(false)
 
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    setIsOpen(true)
+  }
   if(loading) {
     return(
       <div className='text-center'>
@@ -34,7 +43,8 @@ export default function Characters() {
     <div className='flex flex-row h-full flex-wrap justify-evenly'>
             {
               character.characters.results.map((char:any)=>{
-                return <div key={char.id} className="my-2 relative border-4 border-green-500">
+                return <>
+                <div key={char.id} className="my-2 relative border-4 border-green-500" onClick={openModal}>
                   <Image src={char.image} alt={'characterImages'} width={300} height={300} />
                   <h1 className='font-semibold uppercase pl-1'> {char.name}</h1>
                   <p className='absolute top-1 right-2 border-2 border-black rounded-md'
@@ -44,10 +54,12 @@ export default function Characters() {
                   }}
                   >{char.status}</p>
                   </div>
+                </>
               })
             }
             
     </div>
+    <CharactersInfo isOpen={isOpen} closeModal={closeModal} character={character}/>
     </>
     
   )
