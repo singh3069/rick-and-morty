@@ -7,7 +7,9 @@ import CharactersInfo from './CharactersInfo';
 
 export default function Characters() {
   const [page , setPage] = useState(1);
-  const {loading, error, character} = CharactersQuery(page);
+  const {loading, error, character} = CharactersQuery({
+    page
+  });
   const  [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
