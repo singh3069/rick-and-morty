@@ -32,7 +32,7 @@ function CharactersInfo({ isOpen, closeModal, character }: any) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                {character.characters.results.map((char: any) => {
+                {/* {character.map((char: any) => {
                   return (<Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -40,13 +40,13 @@ function CharactersInfo({ isOpen, closeModal, character }: any) {
                   
                     {char.name}
                   </Dialog.Title>);
-                })}
-                {/* <p>{character.name}</p> */}
+                })} */}
+                <p>{character.name}</p>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
+                  {/* <p className="text-sm text-gray-500">
                     Your payment has been successfully submitted. We’ve sent you
                     an email with all of the details of your order.
-                  </p>
+                  </p> */}
                 </div>
 
                 <div className="mt-4">

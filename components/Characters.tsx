@@ -54,12 +54,12 @@ export default function Characters() {
                   }}
                   >{char.status}</p>
                   </div>
+                  {/* <CharactersInfo isOpen={isOpen} closeModal={closeModal} character={char}/> */}
                 </>
               })
             }
             
     </div>
-    <CharactersInfo isOpen={isOpen} closeModal={closeModal} character={character}/>
     </>
     
   )

@@ -8,30 +8,36 @@ import { GET_ALL_CHARACTERS } from "../public/queries";
 
 
 function Search() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const {loading, error, data , refetch} = useQuery(GET_ALL_CHARACTERS , {
     variables: {
       search: search
     }
   })
-  console.log({search})
+  console.log({data})
   return (
     <div className="flex justify-center items-center">
       <input
-        type="search"
+        type="string"
         className="border-black border-b-2 my-6 focus:outline-none"
         placeholder="Serach character"
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e) => setSearch( e.target.value)}
       />
       
       <div className="flex space-x-2.5">
-        <button>
+        <button 
+         onClick={() =>
+          refetch({
+            search: search
+          })
+        }
+        >
         <Image src={searchSVG} alt="search" />
 
         </button>
         <button>
 
-        <Image src={crossSVG} alt="search" />
+        <Image src={crossSVG} alt="cross" />
         </button>
       </div>
 
