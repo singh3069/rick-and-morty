@@ -3,8 +3,8 @@ import { Fragment, useState } from "react";
 import Image from "next/image";
 import closeSvg from "../public/cross.svg";
 
-function CharactersInfo({ isOpen, closeModal, character }: any) {
-    console.log({character})
+function CharactersInfoModal({ isOpen, closeModal, character }: any) {
+  if(!isOpen) return null;
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -67,4 +67,4 @@ function CharactersInfo({ isOpen, closeModal, character }: any) {
   );
 }
 
-export default CharactersInfo;
+export default CharactersInfoModal;

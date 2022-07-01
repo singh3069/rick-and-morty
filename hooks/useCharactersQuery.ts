@@ -1,19 +1,18 @@
 import { useQuery } from '@apollo/client';
-import { GET_ALL_CHARACTERS } from '../queries';
+import { GET_ALL_CHARACTERS } from '../public/queries';
 
 interface CharactersQueryProps {
     page?: number,
     search?: string
 }
 
-function CharactersQuery(props: CharactersQueryProps) {
-  console.log({props})
-    const {loading, error, data : character ,refetch} = useQuery(GET_ALL_CHARACTERS , {
+function useCharactersQuery(props: CharactersQueryProps) {
+  const {loading, error, data : character ,refetch} = useQuery(GET_ALL_CHARACTERS , {
     variables: {
       page: props.page,
       search: props.search
     },
-
+    
   })
   return {
     loading,
@@ -23,4 +22,4 @@ function CharactersQuery(props: CharactersQueryProps) {
   }
 }
 
-export default CharactersQuery
+export default useCharactersQuery
