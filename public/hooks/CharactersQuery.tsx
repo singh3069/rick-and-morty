@@ -12,7 +12,8 @@ function CharactersQuery(props: CharactersQueryProps) {
     variables: {
       page: props.page,
       search: props.search
-    }
+    },
+
   })
   return {
     loading,

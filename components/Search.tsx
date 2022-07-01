@@ -13,12 +13,6 @@ function Search() {
   const {refetch} = CharactersQuery({
     search
   });
-  // const {refetch} = useQuery(GET_ALL_CHARACTERS , {
-  //   variables: {
-  //     search: search
-  //   }
-  // })
-  // console.log({data})
   return (
     <div className="flex justify-center items-center">
       <input
@@ -39,7 +33,9 @@ function Search() {
         <Image src={searchSVG} alt="search" />
 
         </button>
-        <button>
+        <button 
+        onClick={() => setSearch(" ")}
+        >
 
         <Image src={crossSVG} alt="cross" />
         </button>
