@@ -7,23 +7,22 @@ import Search from "./Search";
 
 export default function Characters() {
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState(null);
-  const { loading, error, character,refetch } = useCharactersQuery({
+  const [searchCharacters, setSearchCharacters] = useState("");
+  const [selectedCharacterInfo, setSelectedCharacterInfo] = useState(null);
+  const { loading, error, character, refetch } = useCharactersQuery({
     page,
-    search
+    search: searchCharacters,
   });
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {}, [character]);
 
   function closeModal() {
     setIsOpen(false);
-    setSelected(null);
-
+    setSelectedCharacterInfo(null);
   }
 
   function openModal(char: any) {
-    setSelected(char);
+    setSelectedCharacterInfo(char);
     setIsOpen(true);
   }
   if (loading) {
@@ -37,7 +36,11 @@ export default function Characters() {
 
   return (
     <>
-    <Search search={search} setSearch={setSearch} refetch={refetch}/>
+      <Search
+        searchCharacters={searchCharacters}
+        setSearchCharacters={setSearchCharacters}
+        refetch={refetch}
+      />
       <div className="text-center space-x-4 flex justify-center">
         <button
           onClick={() => setPage(page - 1)}
@@ -94,7 +97,7 @@ export default function Characters() {
         <CharactersInfoModal
           isOpen={isOpen}
           closeModal={closeModal}
-          character={selected}
+          character={selectedCharacterInfo}
         />
       </div>
     </>
