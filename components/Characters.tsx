@@ -3,12 +3,15 @@ import Image from "next/image";
 import loadingSvg from "../public/loading.svg";
 import useCharactersQuery from "../hooks/useCharactersQuery";
 import CharactersInfoModal from "./CharactersInfoModal";
+import Search from "./Search";
 
 export default function Characters() {
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
-  const { loading, error, character } = useCharactersQuery({
+  const { loading, error, character,refetch } = useCharactersQuery({
     page,
+    search
   });
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {}, [character]);
@@ -32,9 +35,9 @@ export default function Characters() {
   }
   if (error) return <p>Error: {error.message}</p>;
 
-  console.log({ character });
   return (
     <>
+    <Search search={search} setSearch={setSearch} refetch={refetch}/>
       <div className="text-center space-x-4 flex justify-center">
         <button
           onClick={() => setPage(page - 1)}

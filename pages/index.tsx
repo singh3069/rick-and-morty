@@ -4,7 +4,7 @@ import Characters from '../components/Characters'
 import Search from '../components/Search'
 import { useState } from 'react';
 import Footer from '../components/Footer';
-import CharactersQuery from "../public/hooks/CharactersQuery";
+import useCharactersQuery from "../hooks/useCharactersQuery";
 
 
 
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           Rick And Morty
         </h1>
       </header>
-      <Search/>
+      {/* <Search/> */}
       <Characters/>
     </div>
     {/* {

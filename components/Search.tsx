@@ -4,15 +4,15 @@ import crossSVG from "../public/cross.svg";
 import Image from "next/image";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_CHARACTERS } from "../public/queries";
-import CharactersQuery from "../public/hooks/CharactersQuery";
+import useCharactersQuery from "../hooks/useCharactersQuery";
 
 
 
-function Search() {
-  const [search, setSearch] = useState("");
-  const {refetch} = CharactersQuery({
-    search
-  });
+function Search({search , setSearch ,refetch}:any) {
+  // const [search, setSearch] = useState("");
+  // const {refetch} = useCharactersQuery({
+  //   search
+  // });
   return (
     <div className="flex justify-center items-center">
       <input
