@@ -9,12 +9,19 @@ export default function Characters() {
   const [page, setPage] = useState(1);
   const [searchCharacters, setSearchCharacters] = useState("");
   const [selectedCharacterInfo, setSelectedCharacterInfo] = useState(null);
-  const { loading, error, character, refetch } = useCharactersQuery({
+  const { loading, error, data, getCharacters } = useCharactersQuery({
     page,
     search: searchCharacters,
   });
+  console.log({ data });
   const [isOpen, setIsOpen] = useState(false);
-  useEffect(() => {}, [character]);
+  useEffect(() => {
+    getCharacters({
+      variables: {
+        page,
+      },
+    });
+  }, [page]);
 
   function closeModal() {
     setIsOpen(false);
@@ -39,7 +46,7 @@ export default function Characters() {
       <Search
         searchCharacters={searchCharacters}
         setSearchCharacters={setSearchCharacters}
-        refetch={refetch}
+        // refetch={refetch}
       />
       {!searchCharacters && (
         <div className="text-center space-x-4 flex justify-center">
@@ -69,35 +76,36 @@ export default function Characters() {
       )}
 
       <div className="flex flex-row h-full flex-wrap justify-evenly">
-        {character.characters.results.map((char: any) => {
-          return (
-            <>
-              <div
-                key={char.id}
-                className="my-2 relative border-4 border-green-500"
-                onClick={() => openModal(char)}
-              >
-                <Image
-                  src={char.image}
-                  alt={"characterImages"}
-                  width={300}
-                  height={300}
-                />
-                <h1 className="font-semibold uppercase pl-1"> {char.name}</h1>
-                <p
-                  className="absolute top-1 right-2 border-2 border-black rounded-md"
-                  style={{
-                    backgroundColor:
-                      char.status === "Alive" ? "#198754" : "#dc3545",
-                    padding: "2px",
-                  }}
+        {data &&
+          data.characters.results.map((char: any) => {
+            return (
+              <>
+                <div
+                  key={char.id}
+                  className="my-2 relative border-4 border-green-500"
+                  onClick={() => openModal(char)}
                 >
-                  {char.status}
-                </p>
-              </div>
-            </>
-          );
-        })}
+                  <Image
+                    src={char.image}
+                    alt={"characterImages"}
+                    width={300}
+                    height={300}
+                  />
+                  <h1 className="font-semibold uppercase pl-1"> {char.name}</h1>
+                  <p
+                    className="absolute top-1 right-2 border-2 border-black rounded-md"
+                    style={{
+                      backgroundColor:
+                        char.status === "Alive" ? "#198754" : "#dc3545",
+                      padding: "2px",
+                    }}
+                  >
+                    {char.status}
+                  </p>
+                </div>
+              </>
+            );
+          })}
         <CharactersInfoModal
           isOpen={isOpen}
           closeModal={closeModal}

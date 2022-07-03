@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import { GET_ALL_CHARACTERS } from '../public/queries';
 
 interface CharactersQueryProps {
@@ -7,18 +7,18 @@ interface CharactersQueryProps {
 }
 
 function useCharactersQuery(props: CharactersQueryProps) {
-  const {loading, error, data : character ,refetch} = useQuery(GET_ALL_CHARACTERS , {
-    variables: {
-      page: props.page,
-      search: props.search
-    },
+  const [getCharacters,{loading, error, data }] = useLazyQuery(GET_ALL_CHARACTERS , {
+    // variables: {
+    //   page: props.page,
+    //   search: props.search
+    // },
     
   })
   return {
     loading,
     error,
-    character,
-    refetch
+    data,
+    getCharacters
   }
 }
 
