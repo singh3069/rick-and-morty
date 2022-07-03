@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 function Search({ searchCharacters, setSearchCharacters, refetch }: any) {
-  const inputRef = useRef(null);
+  const inputRef = useRef(document.createElement("input"));
   const getSearchCharacters = () => {
     // e.preventDefault();
     setSearchCharacters(inputRef.current.value);

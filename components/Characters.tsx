@@ -41,29 +41,33 @@ export default function Characters() {
         setSearchCharacters={setSearchCharacters}
         refetch={refetch}
       />
-      <div className="text-center space-x-4 flex justify-center">
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
-          style={{
-            cursor: page === 1 ? "not-allowed" : "pointer",
-          }}
-          className="border-2 border-black p-1 rounded-md"
-        >
-          Previous Page
-        </button>
+      {!searchCharacters && (
+        <div className="text-center space-x-4 flex justify-center">
+          <button
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+            style={{
+              cursor: page === 1 ? "not-allowed" : "pointer",
+            }}
+            className="border-2 border-black p-1 rounded-md"
+          >
+            Previous Page
+          </button>
 
-        <p className="text-center">
-          Showing Page <span className="text-green-500">{page}</span> out of 42{" "}
-        </p>
-        <button
-          onClick={() => setPage(page + 1)}
-          className="border-2 border-black p-1 rounded-md"
-          disabled={page === 42}
-        >
-          Next Page
-        </button>
-      </div>
+          <p className="text-center">
+            Showing Page <span className="text-green-500">{page}</span> out of
+            42{" "}
+          </p>
+          <button
+            onClick={() => setPage(page + 1)}
+            className="border-2 border-black p-1 rounded-md"
+            disabled={page === 42}
+          >
+            Next Page
+          </button>
+        </div>
+      )}
+
       <div className="flex flex-row h-full flex-wrap justify-evenly">
         {character.characters.results.map((char: any) => {
           return (
