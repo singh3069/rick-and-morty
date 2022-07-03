@@ -9,11 +9,8 @@ export default function Characters() {
   const [page, setPage] = useState(1);
   const [searchCharacters, setSearchCharacters] = useState("");
   const [selectedCharacterInfo, setSelectedCharacterInfo] = useState(null);
-  const { loading, error, data, getCharacters } = useCharactersQuery({
-    page,
-    search: searchCharacters,
-  });
-  console.log({ data });
+  const { loading, error, data, getCharacters } = useCharactersQuery();
+
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     getCharacters({
@@ -23,15 +20,15 @@ export default function Characters() {
     });
   }, [page]);
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
     setSelectedCharacterInfo(null);
-  }
+  };
 
-  function openModal(char: any) {
+  const openModal = (char: any) => {
     setSelectedCharacterInfo(char);
     setIsOpen(true);
-  }
+  };
   if (loading) {
     return (
       <div className="text-center">
@@ -46,34 +43,32 @@ export default function Characters() {
       <Search
         searchCharacters={searchCharacters}
         setSearchCharacters={setSearchCharacters}
-        // refetch={refetch}
+        getCharacters={getCharacters}
       />
-      {!searchCharacters && (
-        <div className="text-center space-x-4 flex justify-center">
-          <button
-            onClick={() => setPage(page - 1)}
-            disabled={page === 1}
-            style={{
-              cursor: page === 1 ? "not-allowed" : "pointer",
-            }}
-            className="border-2 border-black p-1 rounded-md"
-          >
-            Previous Page
-          </button>
 
-          <p className="text-center">
-            Showing Page <span className="text-green-500">{page}</span> out of
-            42{" "}
-          </p>
-          <button
-            onClick={() => setPage(page + 1)}
-            className="border-2 border-black p-1 rounded-md"
-            disabled={page === 42}
-          >
-            Next Page
-          </button>
-        </div>
-      )}
+      <div className="text-center space-x-4 flex justify-center">
+        <button
+          onClick={() => setPage(page - 1)}
+          disabled={page === 1}
+          style={{
+            cursor: page === 1 ? "not-allowed" : "pointer",
+          }}
+          className="border-2 border-black p-1 rounded-md"
+        >
+          Previous Page
+        </button>
+
+        <p className="text-center">
+          Showing Page <span className="text-green-500">{page}</span> out of 42{" "}
+        </p>
+        <button
+          onClick={() => setPage(page + 1)}
+          className="border-2 border-black p-1 rounded-md"
+          disabled={page === 42}
+        >
+          Next Page
+        </button>
+      </div>
 
       <div className="flex flex-row h-full flex-wrap justify-evenly">
         {data &&
