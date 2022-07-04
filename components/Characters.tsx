@@ -9,15 +9,19 @@ export default function Characters() {
   const [page, setPage] = useState(1);
   const [searchCharacters, setSearchCharacters] = useState("");
   const [selectedCharacterInfo, setSelectedCharacterInfo] = useState(null);
-  const { loading, error, data, getCharacters } = useCharactersQuery();
+  const { loading, error, data, getCharacters, fetchMore } =
+    useCharactersQuery();
 
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
-    getCharacters({
-      variables: {
-        page,
-      },
-    });
+    if (!searchCharacters) {
+      getCharacters({
+        variables: {
+          page,
+        },
+      });
+    }
   }, [page]);
 
   const closeModal = () => {
@@ -37,7 +41,33 @@ export default function Characters() {
     );
   }
   if (error) return <p>Error: {error.message}</p>;
+  const findPage = () => {
+    const prev = data && data.characters.info.prev;
+    const next = data && data.characters.info.next;
+    const current = (next + prev) / 2;
 
+    return {
+      prev,
+      next,
+      current,
+    };
+  };
+
+  const setNextPage = () => {
+    setPage(findPage().next);
+    getCharacters({
+      variables: {
+        search: searchCharacters,
+        page: findPage().current,
+      },
+    });
+    fetchMore({
+      variables: {
+        search: searchCharacters,
+        page: findPage().current,
+      },
+    });
+  };
   return (
     <>
       <Search
@@ -48,7 +78,7 @@ export default function Characters() {
 
       <div className="text-center space-x-4 flex justify-center">
         <button
-          onClick={() => setPage(page - 1)}
+          onClick={() => setPage(findPage().prev)}
           disabled={page === 1}
           style={{
             cursor: page === 1 ? "not-allowed" : "pointer",
@@ -59,12 +89,14 @@ export default function Characters() {
         </button>
 
         <p className="text-center">
-          Showing Page <span className="text-green-500">{page}</span> out of 42{" "}
+          Showing Page{" "}
+          <span className="text-green-500">{findPage().current}</span> out of{" "}
+          {data && data.characters.info.pages}
         </p>
         <button
-          onClick={() => setPage(page + 1)}
+          onClick={setNextPage}
           className="border-2 border-black p-1 rounded-md"
-          disabled={page === 42}
+          disabled={page === data && data.characters.info.pages}
         >
           Next Page
         </button>
