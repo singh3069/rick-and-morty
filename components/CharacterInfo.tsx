@@ -29,15 +29,18 @@ function CharacterInfo({ char, openModal }: any) {
           {char.name}
         </h1>
         <p
-          className="absolute top-1 right-2 border-2 border-[#953ffa] rounded-md"
+          className="absolute top-1 right-2 border-2 border-[#953ffa] rounded-md p-[2px]"
           style={{
             backgroundColor: char.status === "Alive" ? "#198754" : "#dc3545",
-            padding: "2px",
           }}
         >
           {char.status}
         </p>
-        {isHovering && <p>Click For More Details</p>}
+        {isHovering && (
+          <p className="absolute bg-[#953ffa] text-white w-full text-center bottom-0 p-[2.5px] transition-[bottom-0] ease-in-out duration-700">
+            Click For More Details
+          </p>
+        )}
       </div>
     </div>
   );
