@@ -13,11 +13,11 @@
     <animate attributeName="fill-opacity" repeatCount="indefinite" dur="1s" values="0;1;1" keyTimes="0;0.2;1" begin="0s"/>
   </circle>
 </g><g transform="translate(-15 0)">
-  <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#00a950" transform="rotate(90 50 50)"/>
-  <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#00a950">
+  <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#953ffa" transform="rotate(90 50 50)"/>
+  <path d="M50 50L20 50A30 30 0 0 0 80 50Z" fill="#953ffa">
     <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;45 50 50;0 50 50" keyTimes="0;0.5;1"/>
   </path>
-  <path d="M50 50L20 50A30 30 0 0 1 80 50Z" fill="#00a950">
+  <path d="M50 50L20 50A30 30 0 0 1 80 50Z" fill="#953ffa">
     <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;-45 50 50;0 50 50" keyTimes="0;0.5;1"/>
   </path>
 </g>
