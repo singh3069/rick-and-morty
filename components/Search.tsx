@@ -4,13 +4,27 @@ import crossSVG from "../public/cross.svg";
 import Image from "next/image";
 import { useRef } from "react";
 
-function Search({ searchCharacters, setSearchCharacters, getCharacters }: any) {
+function Search({
+  searchCharacters,
+  setSearchCharacters,
+  getCharacters,
+  data,
+}: any) {
+  const characterName =
+    data && data.characters.results.map((char: any) => char.name);
+
   const getSearchCharacters = () => {
     if (!searchCharacters) {
       alert("Please enter a character name");
       getCharacters({
         variables: { page: 1 },
       });
+    }
+    if (searchCharacters !== characterName) {
+      alert("Please enter a valid  character name");
+      // getCharacters({
+      //   variables: { page: 1 },
+      // });
     }
     getCharacters({
       variables: { search: searchCharacters },
@@ -20,11 +34,12 @@ function Search({ searchCharacters, setSearchCharacters, getCharacters }: any) {
     getCharacters();
     setSearchCharacters("");
   };
+
   return (
     <div className="flex justify-center items-center">
       <input
         type="text"
-        className="border-black border-b-2 my-6 focus:outline-none"
+        className="border-[#953ffa] bg-transparent text-white placeholder-white  border-b-2 my-6 focus:outline-none"
         placeholder="Search character"
         value={searchCharacters}
         // ref={inputRef}
