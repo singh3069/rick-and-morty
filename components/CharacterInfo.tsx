@@ -31,7 +31,7 @@ function CharacterInfo({ char, openModal }: any) {
         <p
           className="absolute top-1 right-2 border-2 border-[#953ffa] rounded-md p-[2px]"
           style={{
-            backgroundColor: char.status === "Alive" ? "#198754" : "#dc3545",
+            backgroundColor: char.status === "Alive" ? "#45f248" : "#ff0000",
           }}
         >
           {char.status}

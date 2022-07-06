@@ -4,7 +4,8 @@ import Image from "next/image";
 import closeSvg from "../public/cross.svg";
 
 function CharactersInfoModal({ isOpen, closeModal, character }: any) {
-  if(!isOpen) return null;
+  if (!isOpen) return null;
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -31,25 +32,8 @@ function CharactersInfoModal({ isOpen, closeModal, character }: any) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                {/* {character.map((char: any) => {
-                  return (<Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  key={char.id}>
-                  
-                    {char.name}
-                  </Dialog.Title>);
-                })} */}
-                <p>{character.name}</p>
-                <div className="mt-2">
-                  {/* <p className="text-sm text-gray-500">
-                    Your payment has been successfully submitted. We’ve sent you
-                    an email with all of the details of your order.
-                  </p> */}
-                </div>
-
-                <div className="mt-4">
+              <Dialog.Panel className="w-full max-w-md transform  rounded-2xl p-6 text-left align-middle shadow-xl transition-all bg-[#953ffa]">
+                <div className="mb-4 w-full text-right">
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -57,6 +41,65 @@ function CharactersInfoModal({ isOpen, closeModal, character }: any) {
                   >
                     <Image src={closeSvg} alt="close" />
                   </button>
+                </div>
+                <div className="flex w-full justify-between items-center">
+                  <Image
+                    src={character.image}
+                    alt={"characterImages"}
+                    width={100}
+                    height={100}
+                    className="rounded-full mb-4  border-2 border-white "
+                  />
+                  <div className="flex flex-col">
+                    <p>
+                      <span className="text-white">Name: </span>
+                      <span className="font-semibold uppercase">
+                        {character.name}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="text-white">Location: </span>
+                      {character.location.name}
+                    </p>
+                    <p>
+                      <span className="text-white">Status:</span>{" "}
+                      {character.status}
+                    </p>
+                    <p>
+                      <span className="text-white">Origin:</span>{" "}
+                      {character.origin.name}
+                    </p>
+                    <p>
+                      <span className="text-white">Total Num of Episodes:</span>{" "}
+                      {character.episode.length}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-2">
+                  <table className="w-full border-[1px]">
+                    <thead>
+                      <tr>
+                        <th className="underline text-white tracking-wider">
+                          Episodes
+                        </th>
+                        <th className="underline text-white tracking-wider">
+                          Episodes Air-date
+                        </th>
+                      </tr>
+                    </thead>
+
+                    {character.episode.map((epi: any) => {
+                      return (
+                        <tbody key={epi.id}>
+                          <tr>
+                            <td className="border-[1px]">{epi.episode}</td>
+                            <td className="border-[1px]">{epi.air_date}</td>
+                          </tr>
+                        </tbody>
+                      );
+                    })}
+                  </table>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
