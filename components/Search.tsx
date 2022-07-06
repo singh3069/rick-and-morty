@@ -47,10 +47,17 @@ function Search({
       />
 
       <div className="flex space-x-2.5">
-        <button onClick={getSearchCharacters}>
+        <button
+          onClick={getSearchCharacters}
+          className="flex justify-center items-center"
+        >
           <Image src={searchSVG} alt="search" />
         </button>
-        <button type="reset" onClick={removeSearchCharacters}>
+        <button
+          type="reset"
+          onClick={removeSearchCharacters}
+          className="flex justify-center items-center"
+        >
           <Image src={crossSVG} alt="cross" />
         </button>
       </div>
