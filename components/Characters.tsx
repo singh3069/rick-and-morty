@@ -44,12 +44,11 @@ export default function Characters() {
     );
   }
   if (error) return <p>Error: {error.message}</p>;
-
   const findPage = () => {
     const prev = data && data.characters.info.prev;
     const next = data && data.characters.info.next;
     const current = (next + prev) / 2;
-    console.log(current);
+
     return {
       prev,
       next,
@@ -62,48 +61,48 @@ export default function Characters() {
     getCharacters({
       variables: {
         search: searchCharacters,
-        page,
+        page: findPage().current,
       },
     });
-    // fetchMore({
-    //   variables: {
-    //     search: searchCharacters,
-    //     page,
-    //   },
-    // });
-  };
-
-  const getCharactersOnScroll = () => {
-    setPage(findPage().next);
-    getCharacters({
+    fetchMore({
       variables: {
         search: searchCharacters,
-        page,
+        page: findPage().current,
       },
     });
-    // fetchMore({
-    //   variables: {
-    //     search: searchCharacters,
-    //     page,
-
-    //   },
-    // });
   };
-
   return (
-    <div>
-      <div className="md:flex justify-between  py-5">
-        <header className="">
-          <h1 className="text-5xl font-semibold  font-serif py-3 text-white">
-            Rick And Morty
-          </h1>
-        </header>
-        <Search
-          searchCharacters={searchCharacters}
-          setSearchCharacters={setSearchCharacters}
-          getCharacters={getCharacters}
-          data={data}
-        />
+    <>
+      <Search
+        searchCharacters={searchCharacters}
+        setSearchCharacters={setSearchCharacters}
+        getCharacters={getCharacters}
+      />
+
+      <div className="text-center space-x-4 flex justify-center">
+        <button
+          onClick={() => setPage(findPage().prev)}
+          disabled={page === 1}
+          style={{
+            cursor: page === 1 ? "not-allowed" : "pointer",
+          }}
+          className="border-2 border-black p-1 rounded-md"
+        >
+          Previous Page
+        </button>
+
+        <p className="text-center">
+          Showing Page{" "}
+          <span className="text-green-500">{findPage().current}</span> out of{" "}
+          {data && data.characters.info.pages}
+        </p>
+        <button
+          onClick={setNextPage}
+          className="border-2 border-black p-1 rounded-md"
+          disabled={page === data && data.characters.info.pages}
+        >
+          Next Page
+        </button>
       </div>
 
       <NextAndPreviousBttn
@@ -140,6 +139,6 @@ export default function Characters() {
           character={selectedCharacterInfo}
         />
       </div>
-    </div>
+    </>
   );
 }
