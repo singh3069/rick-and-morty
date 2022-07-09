@@ -4,20 +4,26 @@ import loadingSvg from "../public/loading.svg";
 import useCharactersQuery from "../hooks/useCharactersQuery";
 import CharactersInfoModal from "./CharactersInfoModal";
 import Search from "./Search";
+import InfiniteScroll from "react-infinite-scroll-component";
+import CharacterInfo from "./CharacterInfo";
+import NextAndPreviousBttn from "./NextAndPreviousBttn";
 
 export default function Characters() {
   const [page, setPage] = useState(1);
   const [searchCharacters, setSearchCharacters] = useState("");
   const [selectedCharacterInfo, setSelectedCharacterInfo] = useState(null);
-  const { loading, error, data, getCharacters } = useCharactersQuery();
-
   const [isOpen, setIsOpen] = useState(false);
+  const { loading, error, data, getCharacters, fetchMore } =
+    useCharactersQuery();
+
   useEffect(() => {
-    getCharacters({
-      variables: {
-        page,
-      },
-    });
+    if (!searchCharacters) {
+      getCharacters({
+        variables: {
+          page,
+        },
+      });
+    }
   }, [page]);
 
   const closeModal = () => {
@@ -29,6 +35,7 @@ export default function Characters() {
     setSelectedCharacterInfo(char);
     setIsOpen(true);
   };
+
   if (loading) {
     return (
       <div className="text-center">
@@ -38,75 +45,101 @@ export default function Characters() {
   }
   if (error) return <p>Error: {error.message}</p>;
 
+  const findPage = () => {
+    const prev = data && data.characters.info.prev;
+    const next = data && data.characters.info.next;
+    const current = (next + prev) / 2;
+    console.log(current);
+    return {
+      prev,
+      next,
+      current,
+    };
+  };
+
+  const setNextPage = () => {
+    setPage(findPage().next);
+    getCharacters({
+      variables: {
+        search: searchCharacters,
+        page,
+      },
+    });
+    // fetchMore({
+    //   variables: {
+    //     search: searchCharacters,
+    //     page,
+    //   },
+    // });
+  };
+
+  const getCharactersOnScroll = () => {
+    setPage(findPage().next);
+    getCharacters({
+      variables: {
+        search: searchCharacters,
+        page,
+      },
+    });
+    // fetchMore({
+    //   variables: {
+    //     search: searchCharacters,
+    //     page,
+
+    //   },
+    // });
+  };
+
   return (
-    <>
-      <Search
-        searchCharacters={searchCharacters}
-        setSearchCharacters={setSearchCharacters}
-        getCharacters={getCharacters}
-      />
-
-      <div className="text-center space-x-4 flex justify-center">
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
-          style={{
-            cursor: page === 1 ? "not-allowed" : "pointer",
-          }}
-          className="border-2 border-black p-1 rounded-md"
-        >
-          Previous Page
-        </button>
-
-        <p className="text-center">
-          Showing Page <span className="text-green-500">{page}</span> out of 42{" "}
-        </p>
-        <button
-          onClick={() => setPage(page + 1)}
-          className="border-2 border-black p-1 rounded-md"
-          disabled={page === 42}
-        >
-          Next Page
-        </button>
+    <div>
+      <div className="md:flex justify-between  py-5">
+        <header className="">
+          <h1 className="text-5xl font-semibold  font-serif py-3 text-white">
+            Rick And Morty
+          </h1>
+        </header>
+        <Search
+          searchCharacters={searchCharacters}
+          setSearchCharacters={setSearchCharacters}
+          getCharacters={getCharacters}
+          data={data}
+        />
       </div>
 
+      <NextAndPreviousBttn
+        page={page}
+        setPage={setPage}
+        setNextPage={setNextPage}
+        findPage={findPage}
+        data={data}
+      />
+
       <div className="flex flex-row h-full flex-wrap justify-evenly">
+        {/* {data && (
+          <InfiniteScroll
+            dataLength={data && data.characters.results.length}
+            next={() => {
+              getCharactersOnScroll();
+              console.log("next");
+            }}
+            // hasMore={data && data.characters.info.next}
+            hasMore
+            loader={data && <h2>Loading...</h2>}
+            className="flex flex-row h-full flex-wrap justify-evenly"
+          > */}
         {data &&
-          data.characters.results.map((char: any) => {
-            return (
-              <>
-                <div
-                  key={char.id}
-                  className="my-2 relative border-4 border-green-500"
-                  onClick={() => openModal(char)}
-                >
-                  <Image
-                    src={char.image}
-                    alt={"characterImages"}
-                    width={300}
-                    height={300}
-                  />
-                  <h1 className="font-semibold uppercase pl-1"> {char.name}</h1>
-                  <p
-                    className="absolute top-1 right-2 border-2 border-black rounded-md"
-                    style={{
-                      backgroundColor:
-                        char.status === "Alive" ? "#198754" : "#dc3545",
-                      padding: "2px",
-                    }}
-                  >
-                    {char.status}
-                  </p>
-                </div>
-              </>
-            );
+          data.characters.results.map((char: any, i: number) => {
+            return <CharacterInfo char={char} key={i} openModal={openModal} />;
           })}
+        {/* </InfiniteScroll> */}
+        {/* )} */}
+
         <CharactersInfoModal
           isOpen={isOpen}
           closeModal={closeModal}
           character={selectedCharacterInfo}
         />
       </div>
-    </>
+    </div>
   );
 }

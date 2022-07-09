@@ -20,12 +20,7 @@ function Search({
         variables: { page: 1 },
       });
     }
-    if (searchCharacters !== characterName) {
-      alert("Please enter a valid  character name");
-      // getCharacters({
-      //   variables: { page: 1 },
-      // });
-    }
+
     getCharacters({
       variables: { search: searchCharacters },
     });
