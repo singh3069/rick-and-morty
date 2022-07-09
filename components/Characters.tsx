@@ -44,12 +44,11 @@ export default function Characters() {
     );
   }
   if (error) return <p>Error: {error.message}</p>;
-
   const findPage = () => {
     const prev = data && data.characters.info.prev;
     const next = data && data.characters.info.next;
     const current = (next + prev) / 2;
-    console.log(current);
+
     return {
       prev,
       next,
