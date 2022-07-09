@@ -84,8 +84,13 @@ export default function Characters() {
   return (
     <div>
       <div className="md:flex justify-between  py-5">
-        <header className="">
-          <h1 className="text-5xl font-semibold  font-serif py-3 text-white">
+        <header
+          className="cursor-pointer"
+          onClick={() => {
+            getCharacters();
+          }}
+        >
+          <h1 className="text-5xl font-semibold  font-serif py-3 text-zinc-800">
             Rick And Morty
           </h1>
         </header>
