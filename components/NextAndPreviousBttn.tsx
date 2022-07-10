@@ -2,16 +2,15 @@ import React from "react";
 
 function NextAndPreviousBttn({
   page,
-  setPage,
-  setNextPage,
-  setPreviousPage,
+  getNextPage,
+  getPreviousPage,
   findPage,
   data,
 }: any) {
   return (
     <div className="text-center space-x-4 flex justify-center px-2 sm:px-0">
       <button
-        onClick={setPreviousPage}
+        onClick={getPreviousPage}
         disabled={page === 1}
         style={{
           cursor: page === 1 ? "not-allowed" : "pointer",
@@ -29,7 +28,7 @@ function NextAndPreviousBttn({
         </span>
       </p>
       <button
-        onClick={setNextPage}
+        onClick={getNextPage}
         className="border-2 text-white bg-[#953ffa] border-[#953ffa] p-1 rounded-md"
         disabled={page === data && data.characters.info.pages}
       >

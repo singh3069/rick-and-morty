@@ -57,7 +57,7 @@ export default function Characters() {
     };
   };
 
-  const setNextPage = () => {
+  const getNextPage = () => {
     const next = findPage().next;
     setPage(next);
     getCharacters({
@@ -68,7 +68,7 @@ export default function Characters() {
     });
   };
 
-  const setPreviousPage = () => {
+  const getPreviousPage = () => {
     const prev = findPage().prev;
     setPage(prev);
     getCharacters({
@@ -101,12 +101,11 @@ export default function Characters() {
       </div>
 
       <NextAndPreviousBttn
-        page={page}
         setPage={setPage}
-        setNextPage={setNextPage}
+        getNextPage={getNextPage}
         findPage={findPage}
         data={data}
-        setPreviousPage={setPreviousPage}
+        getPreviousPage={getPreviousPage}
       />
 
       <div className="flex flex-row h-full flex-wrap justify-evenly">
