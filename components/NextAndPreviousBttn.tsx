@@ -4,13 +4,14 @@ function NextAndPreviousBttn({
   page,
   setPage,
   setNextPage,
+  setPreviousPage,
   findPage,
   data,
 }: any) {
   return (
     <div className="text-center space-x-4 flex justify-center px-2 sm:px-0">
       <button
-        onClick={() => setPage(findPage().prev)}
+        onClick={setPreviousPage}
         disabled={page === 1}
         style={{
           cursor: page === 1 ? "not-allowed" : "pointer",

@@ -44,10 +44,11 @@ export default function Characters() {
     );
   }
   if (error) return <p>Error: {error.message}</p>;
+
   const findPage = () => {
-    const prev = data && data.characters.info.prev;
+    const prev = data?.characters?.info?.prev ?? 0;
     const next = data && data.characters.info.next;
-    const current = (next + prev) / 2;
+    const current = prev + 1;
 
     return {
       prev,
@@ -57,26 +58,23 @@ export default function Characters() {
   };
 
   const setNextPage = () => {
-    setPage(findPage().next);
+    const next = findPage().next;
+    setPage(next);
     getCharacters({
       variables: {
         search: searchCharacters,
-        page,
+        page: next,
       },
     });
   };
 
-  const getCharactersOnScroll = () => {
+  const setPreviousPage = () => {
+    const prev = findPage().prev;
+    setPage(prev);
     getCharacters({
       variables: {
         search: searchCharacters,
-        page,
-      },
-    });
-    fetchMore({
-      variables: {
-        search: searchCharacters,
-        page,
+        page: prev,
       },
     });
   };
@@ -108,21 +106,14 @@ export default function Characters() {
         setNextPage={setNextPage}
         findPage={findPage}
         data={data}
+        setPreviousPage={setPreviousPage}
       />
 
       <div className="flex flex-row h-full flex-wrap justify-evenly">
-        {/* <InfiniteScroll
-          dataLength={20}
-          next={getCharactersOnScroll}
-          hasMore={data && data.characters.info.next}
-          loader={data && <h2>Loading...</h2>}
-          className="flex flex-row h-full flex-wrap justify-evenly"
-        > */}
         {data &&
           data.characters.results.map((char: any, i: number) => {
             return <CharacterInfo char={char} key={i} openModal={openModal} />;
           })}
-        {/* </InfiniteScroll> */}
 
         <CharactersInfoModal
           isOpen={isOpen}
