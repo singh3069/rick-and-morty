@@ -4,14 +4,21 @@ import crossSVG from "../public/cross.svg";
 import Image from "next/image";
 import { useRef } from "react";
 
+interface SearchProps {
+  data: any;
+  searchCharacters: string;
+  setSearchCharacters: any;
+  getCharacters: any;
+}
+
 function Search({
   searchCharacters,
   setSearchCharacters,
   getCharacters,
   data,
-}: any) {
-  const characterName =
-    data && data.characters.results.map((char: any) => char.name);
+}: SearchProps) {
+  // const characterName =
+  //   data && data.characters.results.map((char: any) => char.name);
 
   const getSearchCharacters = () => {
     if (!searchCharacters) {

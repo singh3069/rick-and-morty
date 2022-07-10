@@ -86,6 +86,7 @@ export default function Characters() {
           className="cursor-pointer"
           onClick={() => {
             getCharacters();
+            setSearchCharacters("");
           }}
         >
           <h1 className="text-5xl font-semibold  font-serif py-3 text-zinc-800">
@@ -101,7 +102,8 @@ export default function Characters() {
       </div>
 
       <NextAndPreviousBttn
-        setPage={setPage}
+        // setPage={setPage}
+        page={page}
         getNextPage={getNextPage}
         findPage={findPage}
         data={data}
