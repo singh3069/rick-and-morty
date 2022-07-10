@@ -3,7 +3,17 @@ import { Fragment, useState } from "react";
 import Image from "next/image";
 import closeSvg from "../public/cross.svg";
 
-function CharactersInfoModal({ isOpen, closeModal, character }: any) {
+interface CharactersInfoModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  character: any;
+}
+
+function CharactersInfoModal({
+  isOpen,
+  closeModal,
+  character,
+}: CharactersInfoModalProps) {
   if (!isOpen) return null;
 
   return (

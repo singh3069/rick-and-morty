@@ -1,12 +1,20 @@
 import React from "react";
 
+interface Props {
+  page: number;
+  getNextPage: () => void;
+  getPreviousPage: () => void;
+  findPage: () => any;
+  data: any;
+}
+
 function NextAndPreviousBttn({
   page,
   getNextPage,
   getPreviousPage,
   findPage,
   data,
-}: any) {
+}: Props) {
   return (
     <div className="text-center space-x-4 flex justify-center px-2 sm:px-0">
       <button
