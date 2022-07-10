@@ -69,6 +69,7 @@ export default function Characters() {
   };
 
   const getPreviousPage = () => {
+    // we are setting the page and using it the same time thats why we are storing the next page num and then setting it to the page state doing it because it causes async issues
     const prev = findPage().prev;
     setPage(prev);
     getCharacters({
