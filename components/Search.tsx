@@ -17,8 +17,8 @@ function Search({
   getCharacters,
   data,
 }: SearchProps) {
-  // const characterName =
-  //   data && data.characters.results.map((char: any) => char.name);
+  const characterName =
+    data && data.characters.results.map((char: any) => char.name);
 
   const getSearchCharacters = () => {
     if (!searchCharacters) {
